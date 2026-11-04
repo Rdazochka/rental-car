@@ -16,6 +16,15 @@ export default function CarCard({ car }: CarCardProps) {
         width={244}
         height={268}
       />
+
+      <div className={css.info}>
+        <h2 className={css.title}>
+          <span>{car.brand}</span>{' '}
+          <span className={css.model}>{car.model}</span>, {car.year}
+        </h2>
+
+        <p className={css.price}>${car.rentalPrice}</p>
+      </div>
     </article>
   );
 }
