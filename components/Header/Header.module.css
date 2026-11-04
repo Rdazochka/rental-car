@@ -1,0 +1,45 @@
+.header {
+  width: 100%;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--badges);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navigation a {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.navigation a:hover,
+.navigation a:focus-visible {
+  color: var(--light-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.active {
+  color: var(--light-blue);
+}
