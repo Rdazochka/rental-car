@@ -4,6 +4,7 @@
   gap: 16px;
 
   width: 276px;
+  min-height: 464px;
   padding: 16px;
 
   border-radius: 16px;
@@ -21,30 +22,25 @@
 
 .info {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
+  min-width: 0;
 }
 
-.title,
-.price {
-  margin: 0;
-
+.title {
+  min-width: 0;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.25;
 }
 
-.title {
-  white-space: nowrap;
+.price {
+  flex-shrink: 0;
 }
 
 .title span {
   color: var(--light-blue);
-}
-
-.price {
-  flex-shrink: 0;
 }
 
 .details {
@@ -106,7 +102,7 @@
   transition: background-color var(--transition-duration)
     var(--transition-timing);
 
-  margin-top: 8px;
+  margin-top: auto;
 }
 
 .button:hover,

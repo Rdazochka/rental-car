@@ -2,9 +2,12 @@
 
 import CarCard from '@/components/CarCard/CarCard';
 import { useCars } from '@/features/cars/hooks';
+import css from '@/app/catalog/page.module.css';
 
 export default function CatalogPage() {
   const { data, isLoading, isError, error } = useCars();
+
+  const cars = data?.pages.flatMap((page) => page.cars) ?? [];
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>{error.message}</p>;
@@ -15,7 +18,11 @@ export default function CatalogPage() {
 
   return (
     <main>
-      <CarCard car={firstCar} />
+      <div className={css.carsList}>
+        {cars.map((car) => (
+          <CarCard key={car.id} car={car} />
+        ))}
+      </div>
     </main>
   );
 }
