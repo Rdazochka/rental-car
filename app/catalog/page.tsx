@@ -1,36 +1,21 @@
 'use client';
 
+import CarCard from '@/components/CarCard/CarCard';
 import { useCars } from '@/features/cars/hooks';
 
 export default function CatalogPage() {
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useCars();
+  const { data, isLoading, isError, error } = useCars();
 
   if (isLoading) return <p>Loading...</p>;
-
   if (isError) return <p>{error.message}</p>;
 
+  const firstCar = data?.pages[0]?.cars[0];
+
+  if (!firstCar) return <p>No cars found</p>;
+
   return (
-    <div>
-      <h1>Cars loaded: {data?.pages.flatMap((page) => page.cars).length}</h1>
-
-      <h2>Total cars: {data?.pages[0].totalCars}</h2>
-
-      <h3>Total pages: {data?.pages[0].totalPages}</h3>
-
-      <button
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        {isFetchingNextPage ? 'Loading...' : 'Load more'}
-      </button>
-    </div>
+    <main>
+      <CarCard car={firstCar} />
+    </main>
   );
 }

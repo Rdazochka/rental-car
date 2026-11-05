@@ -1,0 +1,115 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 276px;
+  padding: 16px;
+
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+.image {
+  display: block;
+  width: 244px;
+  height: 268px;
+
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.title,
+.price {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.title {
+  white-space: nowrap;
+}
+
+.title span {
+  color: var(--light-blue);
+}
+
+.price {
+  flex-shrink: 0;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  width: 244px;
+  min-height: 52px;
+  padding: 8px;
+
+  border-radius: 8px;
+  background-color: var(--bg);
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.33;
+}
+
+.detailsRow {
+  display: flex;
+  align-items: center;
+}
+
+.detailsRow span {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.detailsRow span:not(:last-child)::after {
+  content: '';
+  display: block;
+
+  width: 1px;
+  height: 16px;
+  margin: 0 8px;
+
+  background-color: var(--gray-light);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 244px;
+  height: 44px;
+
+  border-radius: 12px;
+  background-color: var(--light-blue);
+  color: var(--white);
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+
+  transition: background-color var(--transition-duration)
+    var(--transition-timing);
+
+  margin-top: 8px;
+}
+
+.button:hover,
+.button:focus-visible {
+  background-color: var(--dark-blue);
+}
