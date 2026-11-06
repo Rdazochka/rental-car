@@ -36,8 +36,8 @@
 }
 
 .description {
-  margin-bottom: 40px;
-  text-align: center;
+  margin-bottom: 24px;
+
   font-size: 24px;
   font-weight: 600;
   line-height: 1.33;
@@ -50,22 +50,18 @@
 
   width: 276px;
   height: 44px;
+  padding: 12px 99px;
 
-  border: none;
   border-radius: 12px;
   background-color: var(--light-blue);
   color: var(--white);
 
-  transition: background-color var(--transition-duration)
-    var(--transition-timing);
-}
-
-.buttonText {
-  margin: 0;
-
   font-size: 16px;
   font-weight: 600;
-  line-height: 1.25;
+  white-space: nowrap;
+
+  transition: background-color var(--transition-duration)
+    var(--transition-timing);
 }
 
 .button:hover,

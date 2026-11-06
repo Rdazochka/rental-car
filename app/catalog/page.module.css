@@ -8,3 +8,47 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 48px auto 80px;
+}
+
+.loadMoreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;
+  padding: 0 38px;
+
+  border: 1px solid var(--light-blue);
+  border-radius: 12px;
+  background-color: transparent;
+  color: var(--main);
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+
+  transition:
+    background-color var(--transition-duration) var(--transition-timing),
+    color var(--transition-duration) var(--transition-timing);
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background-color: var(--light-blue);
+  color: var(--white);
+}
+
+.loadMoreButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.catalogResults {
+  position: relative;
+  min-height: 1531px;
+}
