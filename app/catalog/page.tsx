@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import CatalogEmptyState from '@/components/CatalogEmptyState/CatalogEmptyState';
 
 import CarCard from '@/components/CarCard/CarCard';
 import CatalogFilters, {
@@ -15,11 +16,7 @@ import css from './page.module.css';
 export default function CatalogPage() {
   const [filters, setFilters] = useState<CatalogFilterValues>({});
 
-  const {
-    data: filterOptions,
-
-    isError: isFiltersError,
-  } = useCarFilters();
+  const { data: filterOptions } = useCarFilters();
 
   const {
     data,
@@ -33,10 +30,18 @@ export default function CatalogPage() {
 
   const cars = data?.pages.flatMap((page) => page.cars) ?? [];
 
+  const [filtersResetKey, setFiltersResetKey] = useState(0);
+
+  const handleResetFilters = () => {
+    setFilters({});
+    setFiltersResetKey((prev) => prev + 1);
+  };
+
   return (
     <main>
       {filterOptions && (
         <CatalogFilters
+          key={filtersResetKey}
           brands={filterOptions.brands}
           priceRange={filterOptions.price}
           onSearch={setFilters}
@@ -55,7 +60,9 @@ export default function CatalogPage() {
 
           {isError && <p>{error.message}</p>}
 
-          {!isFetching && !isError && cars.length === 0 && <p>No cars found</p>}
+          {!isFetching && !isError && cars.length === 0 && (
+            <CatalogEmptyState onReset={handleResetFilters} />
+          )}
 
           {isFetching && !isFetchingNextPage && <CatalogLoader />}
         </div>
