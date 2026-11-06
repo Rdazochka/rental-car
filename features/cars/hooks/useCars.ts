@@ -14,5 +14,6 @@ export const useCars = (filters: CarsParams = {}) => {
       }),
     getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
+    placeholderData: (previousData) => previousData,
   });
 };

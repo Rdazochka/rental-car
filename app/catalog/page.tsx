@@ -6,6 +6,7 @@ import CarCard from '@/components/CarCard/CarCard';
 import CatalogFilters, {
   type CatalogFilterValues,
 } from '@/components/CatalogFilters/CatalogFilters';
+import CatalogLoader from '@/components/CatalogLoader/CatalogLoader';
 
 import { useCars, useCarFilters } from '@/features/cars/hooks';
 
@@ -16,13 +17,13 @@ export default function CatalogPage() {
 
   const {
     data: filterOptions,
-    isLoading: isFiltersLoading,
+
     isError: isFiltersError,
   } = useCarFilters();
 
   const {
     data,
-    isLoading,
+    isFetching,
     isError,
     error,
     fetchNextPage,
@@ -42,36 +43,36 @@ export default function CatalogPage() {
         />
       )}
 
-      {isFiltersLoading && <p>Loading filters...</p>}
+      <div className={css.catalogResults}>
+        <div className={css.carsArea}>
+          {cars.length > 0 && (
+            <div className={css.carsList}>
+              {cars.map((car) => (
+                <CarCard key={car.id} car={car} />
+              ))}
+            </div>
+          )}
 
-      {isFiltersError && <p>Failed to load filters.</p>}
+          {isError && <p>{error.message}</p>}
 
-      {isLoading && <p>Loading cars...</p>}
+          {!isFetching && !isError && cars.length === 0 && <p>No cars found</p>}
 
-      {isError && <p>{error.message}</p>}
-
-      {!isLoading && !isError && cars.length === 0 && <p>No cars found</p>}
-
-      {!isLoading && !isError && cars.length > 0 && (
-        <div className={css.carsList}>
-          {cars.map((car) => (
-            <CarCard key={car.id} car={car} />
-          ))}
+          {isFetching && !isFetchingNextPage && <CatalogLoader />}
         </div>
-      )}
 
-      {hasNextPage && (
-        <div className={css.loadMoreWrapper}>
-          <button
-            className={css.loadMoreButton}
-            type="button"
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-          >
-            {isFetchingNextPage ? 'Loading...' : 'Load more'}
-          </button>
-        </div>
-      )}
+        {hasNextPage && (
+          <div className={css.loadMoreWrapper}>
+            <button
+              className={css.loadMoreButton}
+              type="button"
+              onClick={() => fetchNextPage()}
+              disabled={isFetchingNextPage}
+            >
+              {isFetchingNextPage ? 'Loading...' : 'Load more'}
+            </button>
+          </div>
+        )}
+      </div>
     </main>
   );
 }

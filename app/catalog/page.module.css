@@ -52,3 +52,17 @@
   position: relative;
   min-height: 1531px;
 }
+
+.catalogResults {
+  width: 100%;
+}
+
+.carsArea {
+  width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
