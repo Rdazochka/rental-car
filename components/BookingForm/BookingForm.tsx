@@ -1,12 +1,16 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import axios from 'axios';
 
 import {
   bookingSchema,
   type BookingFormValues,
 } from '@/features/booking/validation/bookingSchema';
+import { createBooking } from '@/features/booking/api/bookingApi';
 
 import css from './BookingForm.module.css';
 
@@ -17,8 +21,8 @@ interface BookingFormProps {
 export default function BookingForm({ carId }: BookingFormProps) {
   const {
     register,
+    control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -28,12 +32,33 @@ export default function BookingForm({ carId }: BookingFormProps) {
       comment: '',
     },
   });
-  const name = watch('name');
-  const email = watch('email');
-  const comment = watch('comment');
+
+  const name = useWatch({ control, name: 'name' });
+  const email = useWatch({ control, name: 'email' });
+  const comment = useWatch({ control, name: 'comment' });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: BookingFormValues) =>
+      createBooking(carId, {
+        ...data,
+        comment: data.comment?.trim() || undefined,
+      }),
+
+    onSuccess: (data) => {
+      toast.success(data.message || 'Booking request sent successfully!');
+    },
+
+    onError: (error) => {
+      const message = axios.isAxiosError<{ message?: string }>(error)
+        ? error.response?.data?.message
+        : undefined;
+
+      toast.error(message || 'Something went wrong. Please try again.');
+    },
+  });
 
   const onSubmit = (data: BookingFormValues) => {
-    console.log('Booking data:', { ...data, carId });
+    mutate(data);
   };
 
   return (
@@ -139,8 +164,8 @@ export default function BookingForm({ carId }: BookingFormProps) {
         </div>
       </div>
 
-      <button className={css.submitButton} type="submit">
-        Send
+      <button className={css.submitButton} type="submit" disabled={isPending}>
+        {isPending ? 'Sending...' : 'Send'}
       </button>
     </form>
   );

@@ -26,6 +26,7 @@ export default function CatalogFilters({
   const [maxMileage, setMaxMileage] = useState('');
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isBrandOpen, setIsBrandOpen] = useState(false);
+  const [mileageError, setMileageError] = useState('');
 
   const priceOptions = Array.from(
     {
@@ -40,6 +41,19 @@ export default function CatalogFilters({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (
+      minMileage !== '' &&
+      maxMileage !== '' &&
+      Number(minMileage) > Number(maxMileage)
+    ) {
+      setMileageError(
+        'Maximum mileage must be greater than or equal to minimum mileage.',
+      );
+      return;
+    }
+
+    setMileageError('');
 
     const filters: CatalogFilterValues = {};
 
@@ -58,13 +72,13 @@ export default function CatalogFilters({
     setMaxMileage('');
     setIsBrandOpen(false);
     setIsPriceOpen(false);
+    setMileageError('');
 
     onSearch({});
   };
 
   return (
     <form className={css.filters} onSubmit={handleSubmit}>
-      {/* Car brand */}
       <div className={css.field}>
         <label className={css.label} htmlFor="brand">
           Car brand
@@ -116,8 +130,6 @@ export default function CatalogFilters({
           )}
         </div>
       </div>
-
-      {/* Price */}
       <div className={css.field}>
         <label className={css.label} htmlFor="price">
           Price/ 1 hour
@@ -169,8 +181,6 @@ export default function CatalogFilters({
           )}
         </div>
       </div>
-
-      {/* Mileage */}
       <div className={css.field}>
         <label className={css.label} htmlFor="minMileage">
           Car mileage / km
@@ -184,7 +194,10 @@ export default function CatalogFilters({
             min="0"
             placeholder="From"
             value={minMileage}
-            onChange={(event) => setMinMileage(event.target.value)}
+            onChange={(event) => {
+              setMinMileage(event.target.value);
+              setMileageError('');
+            }}
           />
 
           <input
@@ -194,12 +207,20 @@ export default function CatalogFilters({
             min="0"
             placeholder="To"
             value={maxMileage}
-            onChange={(event) => setMaxMileage(event.target.value)}
+            onChange={(event) => {
+              setMaxMileage(event.target.value);
+              setMileageError('');
+            }}
           />
         </div>
+
+        {mileageError && (
+          <p className={css.mileageError} role="alert">
+            {mileageError}
+          </p>
+        )}
       </div>
 
-      {/* Actions */}
       <div className={css.actions}>
         <button className={css.searchButton} type="submit">
           Search

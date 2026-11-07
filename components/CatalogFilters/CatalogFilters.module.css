@@ -221,3 +221,10 @@
   background-color: transparent;
   color: var(--main);
 }
+
+.mileageError {
+  margin-top: 4px;
+  color: var(--error);
+  font-size: 12px;
+  line-height: 1.3;
+}
