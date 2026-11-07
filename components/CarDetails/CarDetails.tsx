@@ -67,7 +67,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
 
           <li className={css.listItem}>
             <svg className={css.icon} aria-hidden="true">
-              <use href="/icons.svg#icon-settings" />
+              <use href="/icons.svg#icon-brand" />
             </svg>
             <span>Fuel Consumption: {car.fuelConsumption}</span>
           </li>
