@@ -52,8 +52,8 @@ export default function CatalogPage() {
         <div className={css.carsArea}>
           {cars.length > 0 && (
             <div className={css.carsList}>
-              {cars.map((car) => (
-                <CarCard key={car.id} car={car} />
+              {cars.map((car, index) => (
+                <CarCard key={car.id} car={car} isLcp={index === 0} />
               ))}
             </div>
           )}
@@ -63,8 +63,6 @@ export default function CatalogPage() {
           {!isFetching && !isError && cars.length === 0 && (
             <CatalogEmptyState onReset={handleResetFilters} />
           )}
-
-          {isFetching && !isFetchingNextPage && <CatalogLoader />}
         </div>
 
         {hasNextPage && (
@@ -75,11 +73,13 @@ export default function CatalogPage() {
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
             >
-              {isFetchingNextPage ? 'Loading...' : 'Load more'}
+              Load more
             </button>
           </div>
         )}
       </div>
+
+      {isFetching && <CatalogLoader />}
     </main>
   );
 }

@@ -23,7 +23,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="uk" className={`${manrope.variable} ${inter.variable}`}>
+    <html
+      lang="uk"
+      className={`${manrope.variable} ${inter.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <body>
         <TanStackProvider>
           <Header />

@@ -5,17 +5,19 @@ import css from './CarCard.module.css';
 
 interface CarCardProps {
   car: Car;
+  isLcp?: boolean;
 }
 
-export default function CarCard({ car }: CarCardProps) {
+export default function CarCard({ car, isLcp = false }: CarCardProps) {
   return (
     <article className={css.card}>
       <Image
         className={css.image}
         src={car.img}
         alt={`${car.brand} ${car.model}`}
-        width={380}
-        height={416}
+        width={244}
+        height={268}
+        loading={isLcp ? 'eager' : 'lazy'}
       />
 
       <div className={css.info}>
