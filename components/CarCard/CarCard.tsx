@@ -46,6 +46,7 @@ export default function CarCard({ car, isLcp = false }: CarCardProps) {
         className={css.button}
         target="_blank"
         rel="noopener noreferrer"
+        prefetch={false}
       >
         Read more
       </Link>

@@ -53,7 +53,7 @@ export default function CatalogPage() {
           {cars.length > 0 && (
             <div className={css.carsList}>
               {cars.map((car, index) => (
-                <CarCard key={car.id} car={car} isLcp={index === 0} />
+                <CarCard key={car.id} car={car} isLcp={index < 4} />
               ))}
             </div>
           )}
