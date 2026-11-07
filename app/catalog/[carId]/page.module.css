@@ -7,3 +7,36 @@
   margin: 0 auto;
   padding: 48px 16px;
 }
+
+.page {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+
+  width: 100%;
+  max-width: 1200px;
+  margin: 48px auto 0;
+  padding-bottom: 80px;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 640px;
+  gap: 32px;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 528px;
+}
+
+.carImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 16px;
+}
